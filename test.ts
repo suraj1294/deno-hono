@@ -1,7 +1,10 @@
 import { hash, verify } from "@stdext/crypto/hash";
-import { db } from "./drizzle/db.ts";
+import { client, connectionString, db } from "./drizzle/db.ts";
 import { users } from "./drizzle/schema.ts";
 import { eq } from "drizzle-orm";
+import { Pool } from "@neondatabase/serverless";
+
+const pool = new Pool({ connectionString });
 
 const getUsers = async () => {
   const res = await db.query.users.findMany();
@@ -45,10 +48,19 @@ const DeleUser = async (email: string) => {
   return res;
 };
 
+const getUsersRaw = async () => {
+  const client = await pool.connect();
+  const res = await client.query("SELECT * FROM users");
+
+  const rows = res.rows;
+
+  return rows;
+};
+
 //console.log(await addUser("suraj@test.com", "suraj1294"));
 
 //console.log(await checkUser("suraj@test.com", "suraj1294f"));
 
 //console.log(await DeleUser("suraj@test.com"));
 
-console.log(await getUsers());
+console.log(await getUsersRaw());
