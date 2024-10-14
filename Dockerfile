@@ -14,7 +14,7 @@ USER deno
 # Ideally cache deps.ts will download and compile _all_ external files used in main.ts.
 COPY .  .
 RUN deno install
-RUN deno compile --allow-read --allow-net --allow-env hono.ts
+RUN deno compile --allow-read --allow-net --allow-env server.ts
 
 
 # These steps will be re-run upon each file change in your working directory:
@@ -24,5 +24,5 @@ RUN deno compile --allow-read --allow-net --allow-env hono.ts
 #RUN deno compile --allow-read --allow-net --allow-env hono.ts
 
 FROM build AS final
-COPY --from=build /app/hono.ts /app/hono.ts
-CMD [ "./hono" ]
+COPY --from=build /app/server.ts /app/server.ts
+CMD [ "./server" ]
