@@ -9,7 +9,7 @@ console.log(Deno.env.get("DATABASE_URL"));
 
 const app = new Hono();
 
-app.get("/", (c: Context) => c.text("Hello Deno!"));
+// app.get("/", (c: Context) => c.text("Hello Deno!"));
 
 //Deno.serve(app.fetch);
 
@@ -20,7 +20,7 @@ app.use("*", logger());
 app.use(
   "*",
   cors({
-    origin: Deno.env.get("CORS_ORIGIN") ?? "http://localhost:3000",
+    origin: JSON.stringify(Deno.env.get("CORS_ORIGIN") ?? [""]),
     credentials: true,
   })
 );
@@ -30,8 +30,8 @@ const apiRoutes = app
   .get("/", (c) => c.text("Up and running! ✨"))
   .route("/auth", authRoutes);
 
-app.get("*", serveStatic({ root: "./client/build/client" }));
-app.get("*", serveStatic({ path: "./client/build/client/index.html" }));
+// app.get("*", serveStatic({ root: "./client/build/client" }));
+// app.get("*", serveStatic({ path: "./client/build/client/index.html" }));
 
 app.onError((err, c) => {
   console.log(err);
