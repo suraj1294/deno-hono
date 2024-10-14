@@ -20,9 +20,9 @@ RUN deno compile --allow-read --allow-net --allow-env server.ts
 # These steps will be re-run upon each file change in your working directory:
 ##COPY . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
-#RUN deno cache hono.ts
+RUN deno cache server.ts
 #RUN deno compile --allow-read --allow-net --allow-env hono.ts
 
 FROM build AS final
 COPY --from=build /app/server.ts /app/server.ts
-CMD [ "./server" ]
+CMD [ "deno", "run", "--allow-read", "--allow-net", "--allow-env", "server.ts" ]

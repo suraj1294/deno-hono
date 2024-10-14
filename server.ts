@@ -1,4 +1,4 @@
-import { Hono } from "@hono/hono";
+import { Hono } from "hono";
 import { Pool } from "@neondatabase/serverless";
 
 const app = new Hono();
@@ -14,7 +14,7 @@ app.get("/db", async (c) => {
   const rows = res.rows;
 
   //return rows;
-  return c.json(rows);
+  return c.json({ ok: "true", data: rows });
 });
 
 Deno.serve({ port: +(Deno.env.get("PORT") || "3000") }, app.fetch);
