@@ -40,7 +40,4 @@ app.onError((err, c) => {
 
 export type ApiRoutes = typeof apiRoutes;
 
-export default {
-  fetch: app.fetch,
-  port: Deno.env.get("PORT") ?? 3000,
-};
+Deno.serve({ port: +(Deno.env.get("PORT") || "3000") }, app.fetch);

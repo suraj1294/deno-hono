@@ -25,4 +25,4 @@ RUN deno compile --allow-read --allow-net --allow-env hono.ts
 
 FROM build AS final
 COPY --from=build /app/hono.ts /app/hono.ts
-CMD [ "deno", "serve", "-A", "--env", "hono.ts" ]
+CMD [ "./hono" ]
