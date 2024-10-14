@@ -1,19 +1,13 @@
-import { Hono, type Context } from "@hono/hono";
+import { Hono } from "@hono/hono";
 import { logger } from "@hono/hono/logger";
 import { cors } from "@hono/hono/cors";
-import { serveStatic } from "@hono/hono/deno";
+//import { serveStatic } from "@hono/hono/deno";
 import { authRoutes } from "./routes/auth-routes.ts";
 import "jsr:@std/dotenv/load";
 
 console.log(Deno.env.get("DATABASE_URL"));
 
 const app = new Hono();
-
-// app.get("/", (c: Context) => c.text("Hello Deno!"));
-
-//Deno.serve(app.fetch);
-
-Deno.serve({ port: +(Deno.env.get("PORT") || "3000") }, app.fetch);
 
 app.use("*", logger());
 
