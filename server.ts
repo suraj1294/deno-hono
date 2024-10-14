@@ -1,20 +1,37 @@
-import { Hono } from "hono";
-import { Pool } from "@neondatabase/serverless";
+import { Hono } from "@hono/hono";
+import { logger } from "@hono/hono/logger";
+import { cors } from "@hono/hono/cors";
+//import { serveStatic } from "@hono/hono/deno";
+import { authRoutes } from "./routes/auth-routes.ts";
+import "jsr:@std/dotenv/load";
+
+console.log(Deno.env.get("DATABASE_URL"));
 
 const app = new Hono();
 
-const pool = new Pool({ connectionString: Deno.env.get("DATABASE_URL") || "" });
+app.use("*", logger());
 
-app.get("/", (c) => c.text("Hello Deno!"));
+app.use(
+  "*",
+  cors({
+    origin: JSON.stringify(Deno.env.get("CORS_ORIGIN") ?? [""]),
+    credentials: true,
+  })
+);
 
-app.get("/db", async (c) => {
-  const client = await pool.connect();
-  const res = await client.query("SELECT * FROM users");
+const apiRoutes = app
+  .basePath("/api")
+  .get("/", (c) => c.text("Up and running! ✨"))
+  .route("/auth", authRoutes);
 
-  const rows = res.rows;
+// app.get("*", serveStatic({ root: "./client/build/client" }));
+// app.get("*", serveStatic({ path: "./client/build/client/index.html" }));
 
-  //return rows;
-  return c.json({ ok: "true", data: rows });
+app.onError((err, c) => {
+  console.log(err);
+  return c.json("internal server error", 500);
 });
+
+export type ApiRoutes = typeof apiRoutes;
 
 Deno.serve({ port: +(Deno.env.get("PORT") || "3000") }, app.fetch);

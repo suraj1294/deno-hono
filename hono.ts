@@ -1,6 +1,6 @@
-import { Hono } from "hono";
-import { logger } from "hono/logger";
-import { cors } from "hono/cors";
+import { Hono } from "@hono/hono";
+import { logger } from "@hono/hono/logger";
+import { cors } from "@hono/hono/cors";
 //import { serveStatic } from "@hono/hono/deno";
 import { authRoutes } from "./routes/auth-routes.ts";
 import "jsr:@std/dotenv/load";

@@ -1,15 +1,34 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@hono/hono@^4.6.4": "4.6.4",
+    "jsr:@std/assert@^1.0.6": "1.0.6",
     "jsr:@std/dotenv@*": "0.225.2",
     "jsr:@std/dotenv@~0.225.2": "0.225.2",
+    "jsr:@std/internal@^1.0.4": "1.0.4",
+    "jsr:@stdext/crypto@^0.0.5": "0.0.5",
     "npm:@neondatabase/serverless@~0.10.1": "0.10.1",
     "npm:@types/node@*": "22.5.4",
-    "npm:hono@^4.6.4": "4.6.4"
+    "npm:drizzle-orm@~0.34.1": "0.34.1_@neondatabase+serverless@0.10.1"
   },
   "jsr": {
+    "@hono/hono@4.6.4": {
+      "integrity": "9bbd937653ab902405af33743561140f8883d27dc730eb9ceac665e2468c8bf6"
+    },
+    "@std/assert@1.0.6": {
+      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
     "@std/dotenv@0.225.2": {
       "integrity": "e2025dce4de6c7bca21dece8baddd4262b09d5187217e231b033e088e0c4dd23"
+    },
+    "@std/internal@1.0.4": {
+      "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
+    },
+    "@stdext/crypto@0.0.5": {
+      "integrity": "cdeddbbd465deb6a9787e43c41055dbd3b8a0705d1dd0665a816a8c77f4ea973"
     }
   },
   "npm": {
@@ -33,8 +52,11 @@
         "pg-types"
       ]
     },
-    "hono@4.6.4": {
-      "integrity": "sha512-T5WqBkTOcIQblqBKB5mpzaH/A+dSpvVe938xZJCHOmOuYfF7DSwE/9/10+BMvwSPq9N/f6LiQ38HxrZSQOsXKw=="
+    "drizzle-orm@0.34.1_@neondatabase+serverless@0.10.1": {
+      "integrity": "sha512-t+zCwyWWt8xTqtYV4doE/xYmT7hpv1L8pQ66zddEz+3VWyedBBtctjMAp22mAJPfyWurRQXUJ1nrTtqLq+DqNA==",
+      "dependencies": [
+        "@neondatabase/serverless"
+      ]
     },
     "obuf@1.1.2": {
       "integrity": "sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg=="
@@ -84,9 +106,12 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@hono/hono@^4.6.4",
+      "jsr:@std/assert@^1.0.6",
       "jsr:@std/dotenv@~0.225.2",
+      "jsr:@stdext/crypto@^0.0.5",
       "npm:@neondatabase/serverless@~0.10.1",
-      "npm:hono@^4.6.4"
+      "npm:drizzle-orm@~0.34.1"
     ]
   }
 }
