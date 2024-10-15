@@ -1,7 +1,7 @@
 import { Hono } from "@hono/hono";
 import { logger } from "@hono/hono/logger";
 import { cors } from "@hono/hono/cors";
-//import { serveStatic } from "@hono/hono/deno";
+import { serveStatic } from "@hono/hono/deno";
 import { authRoutes } from "./routes/auth-routes.ts";
 import "jsr:@std/dotenv/load";
 
@@ -24,8 +24,8 @@ const apiRoutes = app
   .get("/", (c) => c.text("Up and running! ✨"))
   .route("/auth", authRoutes);
 
-// app.get("*", serveStatic({ root: "./client/build/client" }));
-// app.get("*", serveStatic({ path: "./client/build/client/index.html" }));
+app.get("*", serveStatic({ root: "./client/build/client" }));
+app.get("*", serveStatic({ path: "./client/build/client/index.html" }));
 
 app.onError((err, c) => {
   console.log(err);

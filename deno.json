@@ -1,6 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts",
+    "dev": "deno run --watch server.ts",
+    "install:client": "cd client && deno install",
+    "build:client": "cd client && deno install && deno task build",
     "build": "deno cache hono.ts",
     "start": "deno run -A --env hono.ts"
   },

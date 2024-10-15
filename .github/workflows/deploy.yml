@@ -23,6 +23,9 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Build client
+        run: "deno task build:client"
+
       - name: Build step
         run: "deno task build"
 
